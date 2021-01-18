@@ -10,13 +10,13 @@ script:
   - docker run -e CI=true ilyanesterow/tests npm run test
 
 after_success:
+  #Login to docker cli
+  - docker login -u "$DOCKER_USERNAME" -p $DOCKER_PASSWORD
   #Build the images
   - docker build -t ilyanesterow/multi-client ./client
   - docker build -t ilyanesterow/multi-nginx ./nginx
   - docker build -t ilyanesterow/multi-server ./server
   - docker build -t ilyanesterow/multi-worker ./worker
-  #Login to docker cli
-  - docker login -u "$DOCKER_USERNAME" -p $DOCKER_PASSWORD
   #take those images and push them to github
   - docker push ilyanesterow/multi-client:latest
   - docker push ilyanesterow/multi-nginx:latest
