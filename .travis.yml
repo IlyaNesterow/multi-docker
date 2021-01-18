@@ -16,7 +16,7 @@ after_success:
   - docker build -t ilyanesterow/multi-server ./server
   - docker build -t ilyanesterow/multi-worker ./worker
   #Login to docker cli
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker login -u "$DOCKER_USERNAME" -p $DOCKER_PASSWORD
   #take those images and push them to github
   - docker push ilyanesterow/multi-client:latest
   - docker push ilyanesterow/multi-nginx:latest
