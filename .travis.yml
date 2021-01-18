@@ -11,7 +11,7 @@ script:
 
 after_success:
   #Login to docker cli
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
   #Build the images
   - docker build -t $DOCKER_USERNAME/multi-client ./client
   - docker build -t $DOCKER_USERNAME/multi-nginx ./nginx
