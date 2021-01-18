@@ -4,21 +4,21 @@ services:
   - docker
 
 before_install:
-  - docker build -t ilyanesterow/tests -f ./client/Dockerfile.dev ./client
+  - docker build -t $DOCKER_USERNAME/tests -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true ilyanesterow/tests npm run test
+  - docker run -e CI=true $DOCKER_USERNAME/tests npm run test
 
 after_success:
   #Login to docker cli
-  - docker login -u "$DOCKER_USERNAME" -p $DOCKER_PASSWORD
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   #Build the images
-  - docker build -t ilyanesterow/multi-client ./client
-  - docker build -t ilyanesterow/multi-nginx ./nginx
-  - docker build -t ilyanesterow/multi-server ./server
-  - docker build -t ilyanesterow/multi-worker ./worker
+  - docker build -t $DOCKER_USERNAME/multi-client ./client
+  - docker build -t $DOCKER_USERNAME/multi-nginx ./nginx
+  - docker build -t $DOCKER_USERNAME/multi-server ./server
+  - docker build -t $DOCKER_USERNAME/multi-worker ./worker
   #take those images and push them to github
-  - docker push ilyanesterow/multi-client:latest
-  - docker push ilyanesterow/multi-nginx:latest
-  - docker push ilyanesterow/multi-server:latest
-  - docker push ilyanesterow/multi-worker:latest
+  - docker push $DOCKER_USERNAME/multi-client
+  - docker push $DOCKER_USERNAME/multi-nginx
+  - docker push $DOCKER_USERNAME/multi-server
+  - docker push $DOCKER_USERNAME/multi-worker
