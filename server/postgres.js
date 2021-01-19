@@ -2,13 +2,16 @@ const { Pool } = require('pg')
 const keys = require('./keys')
 
 //Postgres server setup
-const client = new Pool({
+const dbConfig = {
   host: keys.pgHost,
   port: keys.pgPort,
   user: keys.pgUser,
   database: keys.pdDb,
-  //password: keys.pgPassword
-})
+}
+if(process.env.PROD)
+  dbConfig.password = keys.pgPassword
+
+const client = new Pool(dbConfig)
   
 client.on('error', () => console.log('Lost PG connection'))
   
