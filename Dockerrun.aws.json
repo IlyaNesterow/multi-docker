@@ -23,7 +23,7 @@
     },
     {
       "name": "nginx-server",
-      "image": "ilyanesterow/multi-nginx",
+      "image": "stephengrider/multi-nginx",
       "essential": true,
       "portMappings": [
         {
