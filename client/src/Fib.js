@@ -85,7 +85,7 @@ const Fib = () => {
   return(
     <div>
       <form>
-        <label>Enter your index</label>
+        <label>Enter your index here</label>
         <input 
           type="number"
           value={ index }
