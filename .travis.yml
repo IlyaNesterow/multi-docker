@@ -23,13 +23,13 @@ after_success:
   - docker push $DOCKER_USERNAME/multi-server
   - docker push $DOCKER_USERNAME/multi-worker
 
-deploy:
+deploy: 
   provider: elasticbeanstalk
   region: "us-west-2"
-  app: "multi-container"
-  env: "Multicontainer-env"
+  app: "multi-docker"
+  env: "Multidocker-env"
   bucket_name: "elasticbeanstalk-us-west-2-284065031581"
-  bucket_path: "multi-container"
+  bucket_path: "multi-docker"
   on:
     branch: main
   access_key_id: $AWS_ACCESS_KEY
